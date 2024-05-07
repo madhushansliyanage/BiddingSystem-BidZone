@@ -12,7 +12,7 @@ $(document).ready(function() {
       // Make POST request to the API
       $.ajax({
         type: 'POST',
-        url: 'http://localhost:8080/profile/add',
+        url: 'http://localhost:8080/user/add',
         contentType: 'application/json',
         data: JSON.stringify(formData),
         success: function(response) {
