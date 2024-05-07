@@ -27,9 +27,33 @@ $(document).ready(function(){
         }
     });
 
-    $('.deleteButton').click(function(){
-        console.log("hi");
-        $('#deleteForm').attr('action', '/management/delete/' + $(this).parents('tr').find('td:eq(0)').html());
+    // $('.deleteButton').click(function(){
+    //     console.log("hi");
+    //     $('#deleteForm').attr('action', '/management/delete/' + $(this).parents('tr').find('td:eq(0)').html());
+    // });
+
+    // Delete button click event handler
+    $(document).on('click', '.deleteButton', function() {
+        var userId = $(this).data('user-id'); // Get user ID from data-user-id attribute
+        console.log(userId);
+
+        // Confirm deletion
+            // Send DELETE request to the server
+            $.ajax({
+                url: 'http://localhost:8080/user/delete/' + userId,
+                type: 'DELETE',
+                success: function(response) {
+                    // Handle success
+                    console.log('User deleted successfully');
+                    // Optionally, you can remove the user's row from the table
+                    // $(this).parents('tr').remove();
+                },
+                error: function(xhr, status, error) {
+                    // Handle error
+                    console.error('Failed to delete user: ' + error);
+                }
+            });
+        
     });
 
     $('.searchInput').keyup(function(){
@@ -39,3 +63,5 @@ $(document).ready(function(){
         });
     });
 });
+
+

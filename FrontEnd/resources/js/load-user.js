@@ -21,8 +21,8 @@ $(document).ready(function () {
                         '<td>' + user.gender + '</td>' +
                         '<td>' + user.likedCategories + '</td>' +
                         '<td>' +
-                        '<button type="button" class="btn btn-primary editButton" data-toggle="modal" data-target="#userModal">Edit</button>' +
-                        '<button type="button" class="btn btn-primary button-red deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>' +
+                        '<button type="button" class="btn btn-primary editButton" data-toggle="modal" data-target="#userModal" data-user-id="'+user.id+'">Edit</button>' +
+                        '<button type="button" class="btn btn-primary button-red deleteButton" data-toggle="modal" data-target="#deleteModal" data-user-id="'+user.id+'">Delete</button>' +
                         '</td>' +
                         '</tr>'
                     );
