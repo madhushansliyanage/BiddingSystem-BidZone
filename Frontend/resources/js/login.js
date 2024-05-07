@@ -7,7 +7,7 @@ function login() {
 
     // Make AJAX request to check user
     $.ajax({
-        url: "http://localhost:8080/profile/view/" + username + "/" + password,
+        url: "http://localhost:8080/user/view/" + username + "/" + password,
         type: "GET",
         success: function(response) {
             // Check response from server
