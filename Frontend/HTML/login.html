@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bid Wars Login</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="../resources/css/login.css">
+    <script src="../resources/js/login.js"></script>
+</head>
+<body>
+<form class="modal-content animate" id="loginForm">
+    <div class="img-container">
+        <img src="../resources/images/auction.jpg" class="login-img">
+    </div>
+    <div class="container">
+        <label><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" id="username" minlength="" maxlength="20" required>
+        <label><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" id="password" minlength="" maxlength="20" required>
+        <span class="error-message"></span>
+        <button type="button" onclick="login()">Login</button>
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+        <p>New User? You can sign up by clicking here: <a href="signup.html" class="sign-up-text">Sign Up</a></p>
+    </div>
+</form>
+</body>
+</html>
