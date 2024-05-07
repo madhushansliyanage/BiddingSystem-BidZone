@@ -8,6 +8,7 @@ $(document).ready(function(){
         $('#history').prop("checked", false);
         $('#management').prop("checked", false);
     });
+
     $('.editButton').click(function(){
         $('#modalTitle').text('Edit User');
         $('#submitButton').text('Edit');
@@ -25,7 +26,9 @@ $(document).ready(function(){
             $('#management').prop("checked", false);
         }
     });
+
     $('.deleteButton').click(function(){
+        console.log("hi");
         $('#deleteForm').attr('action', '/management/delete/' + $(this).parents('tr').find('td:eq(0)').html());
     });
 

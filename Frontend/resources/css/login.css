@@ -70,7 +70,7 @@ img.avatar {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto 25% auto;
+    margin:auto;
     border: 1px solid #888;
     width: 50%;
 }
