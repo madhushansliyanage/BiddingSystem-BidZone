@@ -9,10 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -43,22 +40,11 @@ public class ListingService {
         return modelMapper.map(listings,new TypeToken<List<ListingDTO>>(){}.getType());
     }
 
-    public String addNewListing(ListingDTO listingDTO,MultipartFile image,String username) throws IOException {
-
-        Listing listing = modelMapper.map(listingDTO, Listing.class);
-
-        System.out.println("image is "+image);
-
-        if (image != null && !image.isEmpty()) {
-            String imagePath = saveImageToDisk(image,username);
-            System.out.println(imagePath);
-            listing.setImage(imagePath);
-        }
-
+    public String addNewListing(ListingDTO listingDTO) {
         if(listingRepository.existsById(listingDTO.getId())){
             return VarList.RSP_DUPLICATED;
         }else{
-            listingRepository.save(listing);
+            listingRepository.save(modelMapper.map(listingDTO, Listing.class));
             return VarList.RSP_SUCCESS;
         }
     }
@@ -79,27 +65,6 @@ public class ListingService {
         }else{
             return VarList.RSP_NO_DATA_FOUND;
         }
-    }
-
-    public String saveImageToDisk(MultipartFile image, String username) throws IOException {
-        String path = "C:\\Users\\Listings\\" + username;
-        File directory = new File(path);
-
-        if (!directory.exists() && !directory.mkdirs()) {
-            throw new IOException("Failed to create directory: " + path);
-        }
-
-        String fileName = System.currentTimeMillis() + "_" + image.getOriginalFilename();
-        File targetFile = new File(directory, fileName);
-
-        try {
-            image.transferTo(targetFile);
-        } catch (IOException e) {
-            System.err.println("IOException: " + e.getMessage());
-            throw new IOException("Failed to save file to disk", e);
-        }
-
-        return "c:/Users/Listings/" +username + "/" + fileName;
     }
 
     //-----------------------------------------------------------------------------------------------------------
