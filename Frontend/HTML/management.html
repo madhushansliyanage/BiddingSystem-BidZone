@@ -73,7 +73,7 @@
   </table>
 </div>
 
-<!-- Modal for adding/editing users -->
+<!-- Modal for adding users -->
 <div id="userModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -125,6 +125,64 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button type="reset" class="btn btn-secondary" >Reset</button>
+          <button id="submitButton" type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for editing users -->
+<div id="userUpdateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="userForm" class="modal-content" action="/management" method="post">
+        <div class="modal-header">
+          <h5 id="modalTitle" class="modal-title">Edit User Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="username" class="col-form-label">User Name</label>
+            <input type="text" class="form-control" id="usernameEdit" placeholder="Enter Username" minlength="6" maxlength="20" required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-form-label">Password</label>
+            <input type="password" class="form-control" id="passwordEdit" placeholder="Enter Password" minlength="8" maxlength="20" required>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-form-label">E-mail</label>
+            <input type="email" class="form-control" id="emailEdit" placeholder="example@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text" class="form-control" id="nameEdit" placeholder="Enter Name" required>
+          </div>
+          <div class="form-group">
+            <label for="surname" class="col-form-label">Surname</label>
+            <input type="text" class="form-control" id="surnameEdit" placeholder="Enter Surname">
+          </div>
+          <div class="form-group">
+            <label for="age" class="col-form-label">Age</label>
+            <input type="number" class="form-control" id="ageEdit" placeholder="Enter Age" required>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Gender:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="maleRadioEdit" value="Male" required>
+                <label class="form-check-label" for="maleRadio">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="femaleRadioEdit" value="Female">
+                <label class="form-check-label" for="femaleRadio">Female</label>
+            </div>
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           <button id="submitButton" type="submit" class="btn btn-primary">Add</button>
         </div>
       </form>
