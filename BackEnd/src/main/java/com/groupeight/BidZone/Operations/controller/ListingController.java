@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
 import java.util.List;
@@ -50,7 +49,7 @@ public class ListingController {
         }
     }
 
-    @GetMapping(value = "/search-by-id/{listingId}")
+    @GetMapping("/search-by-id/{listingId}")
     public ResponseEntity searchListingByID(@PathVariable int listingId){
         try{
             ListingDTO listingDTO= listingService.searchListingById(listingId);
@@ -76,7 +75,7 @@ public class ListingController {
         }
     }
 
-    @GetMapping(value = "/search-by-date/{date}")
+    @GetMapping("/search-by-date/{date}")
     public ResponseEntity searchListingByDate(@PathVariable Date date){
         try{
             List<ListingDTO> listingDTOList = listingService.findListingByDate(date);
@@ -102,8 +101,35 @@ public class ListingController {
         }
     }
 
+    @PostMapping("/add")
+    public ResponseEntity addListing(@RequestBody ListingDTO listingDTO){
+        try{
+            String response = listingService.addNewListing(listingDTO);
 
-    @PutMapping(value = "/update")
+            if(response.equals(VarList.RSP_SUCCESS)){
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Successfully added Listing");
+                responseDTO.setContent(listingDTO);
+                return new ResponseEntity(responseDTO,HttpStatus.ACCEPTED);
+            }
+            else{
+                responseDTO.setCode(VarList.RSP_DUPLICATED);
+                responseDTO.setMessage("Listing id is already exists");
+                responseDTO.setContent(listingDTO);
+                return new ResponseEntity(responseDTO,HttpStatus.BAD_REQUEST);
+            }
+        }catch (Exception ex){
+            System.out.println("ERROR: "+ex.getMessage());
+
+            // Handle exceptions
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/update")
     public ResponseEntity updateListing(@RequestBody ListingDTO listingDTO){
         try{
             String response = listingService.updateListing(listingDTO);
@@ -131,35 +157,7 @@ public class ListingController {
         }
     }
 
-    @PostMapping(value = "/add",consumes = {"multipart/form-data"})
-    public ResponseEntity addListing(@RequestPart ListingDTO listingDTO, @RequestPart(value = "image", required = false) MultipartFile image,@RequestParam(value = "username", required = true) String username) {
-
-        try {
-            String response = listingService.addNewListing(listingDTO, image,username);
-
-            if (response.equals(VarList.RSP_SUCCESS)) {
-                responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Successfully added Listing");
-                responseDTO.setContent(listingDTO);
-                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
-            } else {
-                responseDTO.setCode(VarList.RSP_DUPLICATED);
-                responseDTO.setMessage("Listing id is already exists");
-                responseDTO.setContent(listingDTO);
-                return new ResponseEntity(responseDTO, HttpStatus.BAD_REQUEST);
-            }
-        } catch (Exception ex) {
-            System.out.println("ERROR: " + ex.getMessage());
-
-            // Handle exceptions
-            responseDTO.setCode(VarList.RSP_ERROR);
-            responseDTO.setMessage(ex.getMessage());
-            responseDTO.setContent(null);
-            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @DeleteMapping(value = "/delete/{listingId}")
+    @DeleteMapping("/delete/{listingId}")
     public ResponseEntity deleteListingByID(@PathVariable int listingId){
 
         try{
