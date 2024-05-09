@@ -53,42 +53,43 @@ $(document).ready(function () {
     });
   });
 
-  
-    // Handle click event on the edit button
-    $(document).on("click", ".editButton", function () {
-      // Get the user ID from the data attribute
-      var userId = $(this).data("user-id");
+  // Handle click event on the edit button
+  $(document).on("click", ".editButton", function () {
+    // Get the user ID from the data attribute
+    var userId = $(this).data("user-id");
 
-      // Make an AJAX request to fetch user data
-      $.ajax({
-        url: "http://localhost:8080/user/view/" + userId,
-        type: "GET",
-        success: function (user) {
-          // Populate the form fields with the retrieved user data
-          $("#usernameEdit").val(user.content.username);
-          $("#passwordEdit").val(user.content.password);
-          $("#emailEdit").val(user.content.email);
-          $("#nameEdit").val(user.content.name);
-          $("#surnameEdit").val(user.content.surname);
-          $("#ageEdit").val(user.content.age);
+    // Make an AJAX request to fetch user data
+    $.ajax({
+      url: "http://localhost:8080/user/view/" + userId,
+      type: "GET",
+      success: function (user) {
+        // Populate the form fields with the retrieved user data
+        localStorage.setItem('updateUserId', userId);
+        $("#usernameEdit").val(user.content.username);
+        $("#passwordEdit").val(user.content.password);
+        $("#emailEdit").val(user.content.email);
+        $("#nameEdit").val(user.content.name);
+        $("#surnameEdit").val(user.content.surname);
+        $("#ageEdit").val(user.content.age);
 
-          // Set the gender radio button based on user's gender
-          if (user.content.gender === "Male") {
-            $("#maleRadioEdit").prop("checked", true);
-          } else if (user.content.gender === "Female") {
-            $("#femaleRadioEdit").prop("checked", true);
-          }
+        // Set the gender radio button based on user's gender
+        if (user.content.gender === "Male") {
+          $("#maleRadioEdit").prop("checked", true);
+        } else if (user.content.gender === "Female") {
+          $("#femaleRadioEdit").prop("checked", true);
+        }
 
-          // Show the modal
-          $("#userUpdateModal").modal("show");
-        },
-        error: function () {
-          alert("Failed to fetch user data.");
-        },
-      });
+        // Show the modal
+        $("#userUpdateModal").modal("show");
+      },
+      error: function () {
+        alert("Failed to fetch user data.");
+        localStorage.removeItem('updateUserId');
+      },
     });
+  });
 
-
+     
   $(".searchInput").keyup(function () {
     let value = $(this).val().toLowerCase();
     $("#managementTable tr").filter(function () {
