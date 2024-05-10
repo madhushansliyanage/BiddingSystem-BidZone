@@ -55,4 +55,26 @@
     <div class="profile-container">
         <div class="profile-header">
             <h1>User Profile</h1>
-        </div
+        </div>
+        <div class="profile-info">
+            <label for="username">Username:</label>
+            <span id="username">JohnDoe</span>
+        </div>
+        <div class="profile-info">
+            <label for="email">Email:</label>
+            <span id="email">johndoe@example.com</span>
+        </div>
+        <div class="profile-info">
+            <label for="description">Description:</label>
+            <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="bid-form">
+            <form action="/submit_bid" method="post">
+                <label for="bid_amount">Enter Bid Amount:</label>
+                <input type="number" id="bid_amount" name="bid_amount" min="0" step="0.01" required>
+                <input type="submit" value="Place Bid">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
