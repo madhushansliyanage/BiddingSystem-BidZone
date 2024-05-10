@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bidzone login</title>
+  <link rel="stylesheet" href="../resources/css/navbar.css">
+  <link rel="stylesheet" href="../resources/css/home.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="../resources/js/utils.js"></script>
+  <script src="../resources/js/management.js"></script>
+  <script src="../resources/js/header.js"></script>
+  <script src="../resources/js/logout.js"></script>
+  <script src="../resources/js/load-user.js"></script>
+</head>
+<body>
+
+<div class="custom-navbar">
+  <a href="home.html">Home</a>
+  <a href="bids.html">My Bids</a>
+  <!-- Navigation links based on user permissions -->
+  <a href="history.html">History</a>
+  <a href="statistics.html">Statistics</a>
+  <a class="active" href="/management">Management</a>
+  <div class="custom-navbar-right">
+    <!-- Dynamic greeting with username -->
+    <a id="welcome-user-link" href="profile.html">Welcome <span id="username-placeholder"></span> <i class="fa fa-fw fa-user"></i></a>
+    <a href="javascript:logout()"><i class="fa fa-fw fa-sign-out"></i></a>
+  </div>
+</div>
+
+<section class="jumbotron text-center custom-section">
+  <div class="container">
+    <h1>
+      User Management
+      <button type="button" class="btn btn-primary addButton" data-toggle="modal" data-target="#userModal">
+        Add
+      </button>
+    </h1>
+  </div>
+</section>
+
+<section class="jumbotron text-center custom-section">
+  <div class="container">
+    <input type="text" class="searchInput" placeholder="Search"/>
+  </div>
+</section>
+
+<div class="table-container">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>E-mail</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>liked Categories</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="managementTable">
+      <!-- Loop through users -->
+      <!-- User data will be added here -->
+      
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal for adding users -->
+<div id="userModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="userForm" class="modal-content" action="/management" method="post">
+        <div class="modal-header">
+          <h5 id="modalTitle" class="modal-title">Add User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="username" class="col-form-label">User Name</label>
+            <input type="text" class="form-control" id="username" placeholder="Enter Username" minlength="6" maxlength="20" required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter Password" minlength="8" maxlength="20" required>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-form-label">E-mail</label>
+            <input type="email" class="form-control" id="email" placeholder="example@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Enter Name" required>
+          </div>
+          <div class="form-group">
+            <label for="surname" class="col-form-label">Surname</label>
+            <input type="text" class="form-control" id="surname" placeholder="Enter Surname">
+          </div>
+          <div class="form-group">
+            <label for="age" class="col-form-label">Age</label>
+            <input type="number" class="form-control" id="age" placeholder="Enter Age" required>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Gender:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="maleRadio" value="Male" required>
+                <label class="form-check-label" for="maleRadio">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="femaleRadio" value="Female">
+                <label class="form-check-label" for="femaleRadio">Female</label>
+            </div> 
+        </div>
+        <div class="form-group">
+          <label for="category" class="col-form-label">Select Category</label>
+          <select class="form-control" name="likedCategory" required>
+            <option value="Sports">Sports</option>
+            <option value="Technology">Technology</option>
+            <option value="Fashion">Fashion</option>
+          </select>
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="reset" class="btn btn-secondary" >Reset</button>
+          <button id="submitButton" type="submit" class="btn btn-primary">Add</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for editing users -->
+<div id="userUpdateModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form id="userUpdateForm" class="modal-content" action="/management" method="post">
+        <div class="modal-header">
+          <h5 id="modalTitle" class="modal-title">Edit User Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="username" class="col-form-label">User Name</label>
+            <input type="text" class="form-control" id="usernameEdit" placeholder="Enter Username" minlength="6" maxlength="20" required>
+          </div>
+          <div class="form-group">
+            <label for="password" class="col-form-label">Password</label>
+            <input type="password" class="form-control" id="passwordEdit" placeholder="Enter Password" minlength="8" maxlength="20" required>
+          </div>
+          <div class="form-group">
+            <label for="email" class="col-form-label">E-mail</label>
+            <input type="email" class="form-control" id="emailEdit" placeholder="example@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label for="name" class="col-form-label">Name</label>
+            <input type="text" class="form-control" id="nameEdit" placeholder="Enter Name" required>
+          </div>
+          <div class="form-group">
+            <label for="surname" class="col-form-label">Surname</label>
+            <input type="text" class="form-control" id="surnameEdit" placeholder="Enter Surname">
+          </div>
+          <div class="form-group">
+            <label for="age" class="col-form-label">Age</label>
+            <input type="number" class="form-control" id="ageEdit" placeholder="Enter Age" required>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label">Gender:</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="maleRadioEdit" value="Male" required>
+                <label class="form-check-label" for="maleRadio">Male</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="femaleRadioEdit" value="Female">
+                <label class="form-check-label" for="femaleRadio">Female</label>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="category" class="col-form-label">Select Category</label>
+          <select class="form-control" name="likedCategoryEdit" required>
+            <option value="Sports">Sports</option>
+            <option value="Technology">Technology</option>
+            <option value="Fashion">Fashion</option>
+          </select>
+        </div>
+        
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="EditUserSubmitButton" type="submit" class="btn btn-primary" >Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Modal for Delete Confirmation -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete this user?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
