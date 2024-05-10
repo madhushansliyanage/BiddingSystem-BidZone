@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bidzone</title>
+  <title>Bid Zone</title>
   <link rel="stylesheet" href="../resources/css/navbar.css">
   <link rel="stylesheet" href="../resources/css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,107 +16,100 @@
   <script src="../resources/js/header.js"></script>
   <script src="../resources/js/logout.js"></script>
 </head>
+
 <body>
 
-<div class="custom-navbar">
-  <a class="active" href="home.html">Home</a>
-  <a href="bids.html">My Bids</a>
-  <!-- User specific navigation based on conditions -->
-  <a href="history.html">History</a>
-  <a href="statistics.html">Statistics</a>
-  <a href="management.html">Management</a>
-  <div class="custom-navbar-right">
-    <!-- User profile and logout links -->
-    <a id="welcome-user-link" href="profile.html">Welcome <span id="username-placeholder"></span> <i class="fa fa-fw fa-user"></i></a>
-    <a href="javascript:logout()"><i class="fa fa-fw fa-sign-out"></i></a>
+  <div class="custom-navbar">
+    <a class="active" href="home.html">Home</a>
+    <a href="bids.html">My Bids</a>
+    <!-- User specific navigation based on conditions -->
+    <a href="history.html">History</a>
+    <a href="statistics.html">Statistics</a>
+    <a href="management.html">Management</a>
+    <div class="custom-navbar-right">
+      <!-- User profile and logout links -->
+      <a id="welcome-user-link" href="profile.html">Welcome <span id="username-placeholder"></span> <i
+          class="fa fa-fw fa-user"></i></a>
+      <a href="javascript:logout()"><i class="fa fa-fw fa-sign-out"></i></a>
+    </div>
   </div>
-</div>
 
-<section class="jumbotron text-center custom-section">
-  <div class="container">
-    <h1>
-      Active Listings
-      <!-- Display "Add" button if user has history -->
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
-    </h1>
-  </div>
-</section>
+  <section class="jumbotron text-center custom-section">
+    <div class="container">
+      <h1>
+        Active Listings
+        <!-- Display "Add" button if user has history -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addModal">Add</button>
+      </h1>
+    </div>
+  </section>
 
-<section class="jumbotron text-center custom-section">
-  <div class="container">
-    <input type="text" class="searchInput" placeholder="Search"/>
-  </div>
-</section>
+  <section class="jumbotron text-center custom-section">
+    <div class="container">
+      <input type="text" class="searchInput" placeholder="Search" />
+    </div>
+  </section>
 
-<div class="album py-5 bg-light">
-  <div class="container">
-    <div class="row">
-      <!-- Loop through listings to display cards -->
-      <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-          <img src="/resources/images/listings/1/image.jpg" width="100%" height="400">
-          <div class="card-body">
-            <p class="card-text text-center">Listing Name</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary" onclick="location.href = '/listing/1'">View</button>
-              </div>
-              <small class="text-muted">
-                Ending: 2024-05-06 18:00
-              </small>
-            </div>
-          </div>
-        </div>
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row" id="listings-container">
+        <!-- Listings will be dynamically added here -->
       </div>
     </div>
   </div>
-</div>
 
-<!-- Modal for adding a listing -->
-<div id="addModal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form class="modal-content" action="listing.html" method="post" enctype="multipart/form-data">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Listing</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label for="name" class="col-form-label">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Enter Name" minlength="6" maxlength="20" required="true"/>
+  <!-- Modal for adding a listing -->
+  <div id="addModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form class="modal-content" action="" method="post" enctype="multipart/form-data">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Listing</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-          <div class="form-group">
-            <label for="description" class="col-form-label">Description</label>
-            <input type="text" class="form-control" id="description" placeholder="Enter Description" minlength="6" maxlength="200" required="true"/>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="name" class="col-form-label">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter Name" minlength="6" maxlength="20"
+                required="true" />
+            </div>
+            <div class="form-group">
+              <label for="description" class="col-form-label">Description</label>
+              <input type="text" class="form-control" id="description" placeholder="Enter Description" minlength="6"
+                maxlength="200" required="true" />
+            </div>
+            <div class="form-group">
+              <label for="category" class="col-form-label">Category</label>
+              <input type="text" class="form-control" id="category" placeholder="Enter Category" minlength="3"
+                maxlength="20" required="true" />
+            </div>
+            <div class="form-group">
+              <label for="ending" class="col-form-label">Ending</label>
+              <input type="datetime-local" class="form-control" id="ending" required="true" />
+            </div>
+            <div class="form-group">
+              <label for="price" class="col-form-label">Starting Price</label>
+              <input type="number" class="form-control" id="price" min="0" step="1" placeholder="Enter Starting Price"
+                required="true" />
+            </div>
+            <div class="form-group">
+              <label for="file" class="col-form-label">Image</label>
+              <input type="file" id="file" class="form-control" size="5" accept=".png,.jpg" required="true" />
+            </div>
           </div>
-          <div class="form-group">
-            <label for="category" class="col-form-label">Category</label>
-            <input type="text" class="form-control" id="category" placeholder="Enter Category" minlength="3" maxlength="20" required="true"/>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+            <button type="Reset" class="btn btn-secondary">Clear</button>
+            <button type="submit" class="btn btn-primary" onclick="addListing()">Add</button>
           </div>
-          <div class="form-group">
-            <label for="ending" class="col-form-label">Ending</label>
-            <input type="datetime-local" class="form-control" id="ending" required="true"/>
-          </div>
-          <div class="form-group">
-            <label for="price" class="col-form-label">Starting Price</label>
-            <input type="number" class="form-control" id="price" min="0" step="1" placeholder="Enter Starting Price" required="true"/>
-          </div>
-          <div class="form-group">
-            <label for="file" class="col-form-label">Image</label>
-            <input type="file" id="file" class="form-control" size="5" accept=".png,.jpg" required="true"/>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add</button>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-
+<script src="../resources/js/itemCards.js"></script>
+<script src="../resources/js/addItems.js"></script>
 </body>
+
 </html>

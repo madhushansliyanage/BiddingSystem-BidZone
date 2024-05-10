@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -26,7 +26,7 @@ public class Listing {
     private String category;
 
     @Column(nullable = false)
-    private Date ending;
+    private LocalDateTime ending;
 
     @Column(nullable = false, columnDefinition = "float default 0")
     private float price;

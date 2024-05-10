@@ -6,11 +6,12 @@ import com.groupeight.BidZone.Operations.service.ListingService;
 import com.groupeight.BidZone.Operations.util.VarList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -77,7 +78,7 @@ public class ListingController {
     }
 
     @GetMapping(value = "/search-by-date/{date}")
-    public ResponseEntity searchListingByDate(@PathVariable Date date){
+    public ResponseEntity searchListingByDate(@PathVariable LocalDateTime date){
         try{
             List<ListingDTO> listingDTOList = listingService.findListingByDate(date);
 
@@ -131,8 +132,10 @@ public class ListingController {
         }
     }
 
-    @PostMapping(value = "/add",consumes = {"multipart/form-data"})
-    public ResponseEntity addListing(@RequestPart ListingDTO listingDTO, @RequestPart(value = "image", required = false) MultipartFile image,@RequestParam(value = "username", required = true) String username) {
+    @PostMapping(value = "/add",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity addListing(@RequestPart("listingDTO") ListingDTO listingDTO,
+                                     @RequestPart(value = "image") MultipartFile image,
+                                     @RequestParam(value = "username") String username) {
 
         try {
             String response = listingService.addNewListing(listingDTO, image,username);
@@ -141,7 +144,7 @@ public class ListingController {
                 responseDTO.setCode(VarList.RSP_SUCCESS);
                 responseDTO.setMessage("Successfully added Listing");
                 responseDTO.setContent(listingDTO);
-                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+                return new ResponseEntity(responseDTO, HttpStatus.OK);
             } else {
                 responseDTO.setCode(VarList.RSP_DUPLICATED);
                 responseDTO.setMessage("Listing id is already exists");

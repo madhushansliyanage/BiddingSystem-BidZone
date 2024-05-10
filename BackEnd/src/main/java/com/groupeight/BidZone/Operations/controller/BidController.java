@@ -25,17 +25,17 @@ public class BidController {
 
     @GetMapping(value = "/view")
     public ResponseEntity getAllBid() {
-        List<BidDTO> userDTOList = bidService.findAll();
+        List<BidDTO> bidDTOList = bidService.findAll();
         try {
 
-            if (userDTOList.isEmpty()) {
+            if (bidDTOList.isEmpty()) {
                 responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
                 responseDTO.setMessage("No records of Bids found");
             }else{
                 responseDTO.setCode(VarList.RSP_SUCCESS);
                 responseDTO.setMessage("Successfully fetched all Bids");
             }
-            responseDTO.setContent(userDTOList);
+            responseDTO.setContent(bidDTOList);
             return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
         }catch(Exception ex){
@@ -56,12 +56,64 @@ public class BidController {
 
             if (bidDTO==null){
                 responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
-                responseDTO.setMessage("No records of the Bid");
+                responseDTO.setMessage("No records of the Bid id");
             }else {
                 responseDTO.setCode(VarList.RSP_SUCCESS);
-                responseDTO.setMessage("Successfully fetched the Bid");
+                responseDTO.setMessage("Successfully fetched the Bid by bidId");
             }
             responseDTO.setContent(bidDTO);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        }catch (Exception ex){
+            System.out.println("ERROR: "+ex.getMessage());
+
+            // Handle exceptions
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/search-by-user-id/{userId}")
+    public ResponseEntity searchBidByUserID(@PathVariable int userId){
+        try{
+            List<BidDTO> bidDTOList= bidService.searchBidByUserId(userId);
+
+            if (bidDTOList.isEmpty()){
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No records of the Bid of user: "+userId);
+            }else {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Successfully fetched the Bid of User:"+userId);
+            }
+            responseDTO.setContent(bidDTOList);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        }catch (Exception ex){
+            System.out.println("ERROR: "+ex.getMessage());
+
+            // Handle exceptions
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/search-by-list-id/{listId}")
+    public ResponseEntity searchBidByListingId(@PathVariable int listId){
+        try{
+            List<BidDTO> bidDTOList= bidService.searchBidByListingId(listId);
+
+            if (bidDTOList.isEmpty()){
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No records of the Bid for listing id: "+listId);
+            }else {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Successfully fetched the Bid for listing id: "+listId);
+            }
+            responseDTO.setContent(bidDTOList);
             return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
         }catch (Exception ex){

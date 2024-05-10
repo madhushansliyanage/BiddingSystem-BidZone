@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public interface ListingRepository extends JpaRepository<Listing, Integer> {
 
     @Query(value = "SELECT * FROM Listing l WHERE l.ending >= :date ORDER BY l.ending ASC", nativeQuery = true)
-    List<Listing> findListingsByDate(Date date);
+    List<Listing> findListingsByDate(LocalDateTime date);
 
 
     /*@Query("SELECT l FROM Listing l WHERE l.ending > :date ORDER BY l.ending ASC")

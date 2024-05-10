@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @AllArgsConstructor
@@ -23,7 +23,7 @@ public class Bid {
     private int userId;
 
     @Column(nullable = false)
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     @Column(nullable = false)
     private float price;
