@@ -3,46 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bidding System Profile</title>
+    <title>Bidding System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
-        .profile-container {
-            max-width: 800px;
+        .container {
+            max-width: 600px;
             margin: 20px auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .profile-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .profile-header h1 {
-            margin: 0;
-        }
-        .profile-info {
-            margin-bottom: 20px;
-        }
-        .profile-info label {
-            font-weight: bold;
-        }
-        .bid-form {
+        h1, h2 {
             text-align: center;
         }
-        .bid-form input[type="number"] {
-            width: 100px;
-            padding: 5px;
-            margin-right: 10px;
+        form {
+            margin-top: 20px;
+            text-align: center;
+        }
+        input[type="number"] {
+            width: 200px;
+            padding: 10px;
+            margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        .bid-form input[type="submit"] {
-            padding: 8px 20px;
+        input[type="submit"] {
+            padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
             border: none;
@@ -52,29 +43,17 @@
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <h1>User Profile</h1>
-        </div>
-        <div class="profile-info">
-            <label for="username">Username:</label>
-            <span id="username">JohnDoe</span>
-        </div>
-        <div class="profile-info">
-            <label for="email">Email:</label>
-            <span id="email">johndoe@example.com</span>
-        </div>
-        <div class="profile-info">
-            <label for="description">Description:</label>
-            <p id="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </div>
-        <div class="bid-form">
-            <form action="/submit_bid" method="post">
-                <label for="bid_amount">Enter Bid Amount:</label>
-                <input type="number" id="bid_amount" name="bid_amount" min="0" step="0.01" required>
-                <input type="submit" value="Place Bid">
-            </form>
-        </div>
+    <div class="container">
+        <h1>Bidding System</h1>
+        <h2>User Profile</h2>
+        <p><strong>Username:</strong> JohnDoe</p>
+        <p><strong>Email:</strong> johndoe@example.com</p>
+        <p><strong>Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        <form action="/submit_bid" method="post">
+            <label for="bid_amount">Enter Your Bid Amount:</label><br>
+            <input type="number" id="bid_amount" name="bid_amount" min="0" step="0.01" required><br>
+            <input type="submit" value="Place Bid">
+        </form>
     </div>
 </body>
 </html>
