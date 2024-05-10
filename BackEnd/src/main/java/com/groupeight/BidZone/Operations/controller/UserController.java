@@ -110,7 +110,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addAttendance(@RequestBody UserDTO userDTO){
+    public ResponseEntity addUser(@RequestBody UserDTO userDTO){
         try{
             String response = userService.save(userDTO);
 
@@ -139,7 +139,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteAttendance(@PathVariable int id){
+    public ResponseEntity deleteUser(@PathVariable int id){
         try{
             String response = userService.delete(id);
 
@@ -166,7 +166,7 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity updateAttendance(@RequestBody UserDTO userDTO){
+    public ResponseEntity updateUser(@RequestBody UserDTO userDTO){
         try{
             String response = userService.update(userDTO);
 

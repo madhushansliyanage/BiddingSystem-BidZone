@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,6 +13,6 @@ public class BidDTO {
     private int id;
     private int listingId;
     private int userId;
-    private Date timestamp;
+    private LocalDateTime timestamp;
     private float price;
 }

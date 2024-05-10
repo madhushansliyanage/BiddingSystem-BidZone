@@ -10,9 +10,7 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
@@ -35,6 +33,15 @@ public class BidService {
         }else{
             return null;
         }
+    }
+    public List<BidDTO> searchBidByUserId(int userId) {
+        List<Bid> bids = bidRepository.findBidByUserId(userId);
+        return modelMapper.map(bids,new TypeToken<List<BidDTO>>(){}.getType());
+    }
+
+    public List<BidDTO> searchBidByListingId(int listingID) {
+        List<Bid> bids = bidRepository.findBidByListingId(listingID);
+        return modelMapper.map(bids,new TypeToken<List<BidDTO>>(){}.getType());
     }
 
     public String addNewBid(BidDTO bidDTO) {

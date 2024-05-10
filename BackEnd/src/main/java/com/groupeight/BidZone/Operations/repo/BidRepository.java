@@ -11,6 +11,14 @@ import java.util.List;
 @Repository
 public interface BidRepository extends JpaRepository< Bid, Integer> {
 
+    @Query(value = "SELECT * FROM Bid WHERE user_id=?1",nativeQuery = true)
+    List<Bid> findBidByUserId(int userId);
+
+    @Query(value = "SELECT * FROM Bid WHERE listing_id=?1",nativeQuery = true)
+    List<Bid> findBidByListingId(int listingId);
+
+
+
     /*@Query("SELECT b FROM Bid b WHERE b.user.id=:userId")
     List<Bid> findUserActiveBids(@Param("userId")Integer userId);
 

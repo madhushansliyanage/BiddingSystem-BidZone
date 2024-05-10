@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -38,23 +39,21 @@ public class ListingService {
         }
     }
 
-    public List<ListingDTO> findListingByDate(Date date) {
+    public List<ListingDTO> findListingByDate(LocalDateTime date) {
         List<Listing> listings = listingRepository.findListingsByDate(date);
         return modelMapper.map(listings,new TypeToken<List<ListingDTO>>(){}.getType());
     }
 
     public String addNewListing(ListingDTO listingDTO,MultipartFile image,String username) throws IOException {
-
         Listing listing = modelMapper.map(listingDTO, Listing.class);
 
-        System.out.println("image is "+image);
+        System.out.println("Image came to Listing Service method: "+image);
 
         if (image != null && !image.isEmpty()) {
             String imagePath = saveImageToDisk(image,username);
             System.out.println(imagePath);
             listing.setImage(imagePath);
         }
-
         if(listingRepository.existsById(listingDTO.getId())){
             return VarList.RSP_DUPLICATED;
         }else{
@@ -82,7 +81,7 @@ public class ListingService {
     }
 
     public String saveImageToDisk(MultipartFile image, String username) throws IOException {
-        String path = "C:\\Users\\Listings\\" + username;
+        String path = "C:\\Users\\Public\\BidZone\\Listing\\" + username;
         File directory = new File(path);
 
         if (!directory.exists() && !directory.mkdirs()) {
@@ -99,7 +98,7 @@ public class ListingService {
             throw new IOException("Failed to save file to disk", e);
         }
 
-        return "c:/Users/Listings/" +username + "/" + fileName;
+        return "C:/Users/Public/BidZone/Listing/"+username+"/"+ fileName;
     }
 
     //-----------------------------------------------------------------------------------------------------------
