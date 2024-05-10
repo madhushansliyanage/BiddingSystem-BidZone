@@ -36,11 +36,13 @@ async function addListing() {
         method: 'POST',
         body: formData
       });
-  
+      
+
       if (response.ok) {
         const result = await response.json();
         alert(`Successfully added Listing`);
         clearFormData();
+        location.reload();
       } else {
         const errorText = await response.text();
         alert(`Failed to add Listing: ${errorText}`);
@@ -49,6 +51,7 @@ async function addListing() {
       // console.error('Error adding Listing:', error);
       // alert('An error occurred while adding the Listing.');
     }
+    
   }
   
   
