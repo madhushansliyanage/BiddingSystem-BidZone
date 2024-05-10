@@ -21,8 +21,8 @@ $(document).ready(function () {
                         '<td>' + user.gender + '</td>' +
                         '<td>' + user.likedCategories + '</td>' +
                         '<td>' +
-                        '<button type="button" class="btn btn-primary editButton" data-toggle="modal" data-target="#userModal">Edit</button>' +
-                        '<button type="button" class="btn btn-primary button-red deleteButton" data-toggle="modal" data-target="#deleteModal">Delete</button>' +
+                        '<button type="button" class="btn btn-primary editButton" data-toggle="modal" data-target="#userUpdateModal" data-user-id="'+user.id+'">Edit</button>' +
+                        '<button type="button" class="btn btn-primary button-red deleteButton" data-toggle="modal" data-target="#deleteModal" data-user-id="'+user.id+'">Delete</button>' +
                         '</td>' +
                         '</tr>'
                     );
@@ -53,6 +53,7 @@ $(document).ready(function () {
             "age": $("#age").val(),
             "gender": $("input[name='gender']:checked").val()
         };
+        console.log(userData);
 
         // Send user data to the backend
         $.ajax({
@@ -63,6 +64,50 @@ $(document).ready(function () {
             success: function (response) {
                 // Handle success
                 console.log("User added successfully");
+                // Reset form
+                $("#userForm")[0].reset();
+            },
+            error: function (xhr, status, error) {
+                // Handle error
+                console.error("Failed to add user: " + error);
+            }
+        });
+    });
+
+
+    // Add edited user submission
+    $("#userUpdateForm").submit(function (event) {
+        // Prevent default form submission
+        event.preventDefault();
+
+        // Get the user ID from the data attribute
+        var userId = localStorage.getItem('updateUserId');
+        console.log(userId);
+
+        // Gather user data from form
+        var userData = {
+            "id": userId,
+            "username": $("#usernameEdit").val(),
+            "password": $("#passwordEdit").val(),
+            "email": $("#emailEdit").val(),
+            "name": $("#nameEdit").val(),
+            "surname": $("#surnameEdit").val(),
+            "age": $("#ageEdit").val(),
+            "gender": $("input[name='gender']:checked").val()
+        };
+
+        console.log(userData);
+
+        // Send user data to the backend
+        $.ajax({
+            url: 'http://localhost:8080/user/add',
+            type: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(userData),
+            success: function (response) {
+                // Handle success
+                console.log("User edited successfully");
+                localStorage.removeItem('updateUserId');
                 // Reset form
                 $("#userForm")[0].reset();
             },
