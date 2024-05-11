@@ -14,6 +14,7 @@
   <script src="../resources/js/home.js"></script>
   <script src="../resources/js/header.js"></script>
   <script src="../resources/js/logout.js"></script>
+  <script src="../resources/js/bids.js"></script>
 </head>
 <body>
 
@@ -34,7 +35,7 @@
   <div class="container">
     <h1>
       My Bids
-      <button type="button" class="btn btn-primary addButton" >
+      <button type="button" class="btn btn-primary addButton" onclick="navigateToBidPaymentsPage()" >
         Bid Payments
       </button>
     </h1>
@@ -58,10 +59,7 @@
         <th>Price</th>
       </tr>
     </thead>
-    <tbody id="managementTable">
-      <!-- Loop through users -->
-      <!-- User data will be added here -->
-      
+    <tbody id="bidTableBody">
     </tbody>
   </table>
 </div>
