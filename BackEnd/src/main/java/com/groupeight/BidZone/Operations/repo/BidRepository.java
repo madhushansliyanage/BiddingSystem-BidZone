@@ -5,13 +5,14 @@ import com.groupeight.BidZone.Operations.entity.Bid;
 import com.groupeight.BidZone.Operations.entity.Listing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface BidRepository extends JpaRepository< Bid, Integer> {
+public interface BidRepository extends JpaRepository<Bid, Integer> {
 
     @Query(value = "SELECT * FROM Bid WHERE user_id=?1",nativeQuery = true)
     List<Bid> findBidByUserId(int userId);
@@ -19,24 +20,24 @@ public interface BidRepository extends JpaRepository< Bid, Integer> {
     @Query(value = "SELECT * FROM Bid WHERE listing_id=?1",nativeQuery = true)
     List<Bid> findBidByListingId(int listingId);
 
-    @Query(value = "SELECT b.id AS bid_id, b.listing_Id, b.user_id, l.name AS listing_name, " +
-            "l.description AS listing_description, l.category AS listing_category, l.ending AS listing_ending, " +
+    @Query(value ="SELECT b.id AS bid_id, b.listingId AS listing_Id, b.userId AS user_id, " +
+            "l.name AS listing_name, l.description AS listing_description, " +
+            "l.category AS listing_category, l.ending AS listing_ending, " +
             "b.timestamp AS bid_timestamp, b.price AS bid_price " +
-            "FROM ( " +
-            "    SELECT b1.* " +
-            "    FROM Bid b1 " +
-            "    INNER JOIN ( " +
-            "        SELECT listing_Id, MAX(price) AS max_price " +
-            "        FROM Bid " +
-            "        GROUP BY listing_Id " +
-            "    ) AS max_bids " +
-            "    ON b1.listing_Id = max_bids.listing_Id AND b1.price = max_bids.max_price " +
-            "    WHERE b1.status = 'pending' " +
-            ") AS b " +
-            "INNER JOIN Listing l ON b.listing_Id = l.id " +
-            "WHERE b.user_id = :user_id AND l.ending < :given_date", nativeQuery = true)
-    List<BidListingDTO> findHighestBidsForUserAndEndingBeforeDate(int userId, String givenDate);
-
+            "FROM Bid b " +
+            "INNER JOIN Listing l ON b.listingId = l.id " +
+            "WHERE b.userId = :userId " +
+            "AND l.ending < :givenDate " +
+            "AND b.status = 'pending' " +
+            "AND (b.listingId, b.price) IN " +
+            "(SELECT max_bids.listingId, MAX(max_bids.max_price) " +
+            " FROM (SELECT listingId, MAX(price) AS max_price " +
+            "       FROM Bid " +
+            "       GROUP BY listingId) AS max_bids " +
+            " GROUP BY max_bids.listingId)",nativeQuery = true)
+    List<Object[]> findHighestBidsForUserAndEndingBeforeDate(
+            @Param("userId") int userId,
+            @Param("givenDate") LocalDateTime givenDate);
 
 
 

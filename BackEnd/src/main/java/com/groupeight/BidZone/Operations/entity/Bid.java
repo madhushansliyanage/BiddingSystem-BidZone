@@ -27,4 +27,7 @@ public class Bid {
 
     @Column(nullable = false)
     private float price;
+
+    @Column(nullable = false)
+    private String status;
 }

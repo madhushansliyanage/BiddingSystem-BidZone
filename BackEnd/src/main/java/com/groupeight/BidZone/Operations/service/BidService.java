@@ -1,6 +1,7 @@
 package com.groupeight.BidZone.Operations.service;
 
 import com.groupeight.BidZone.Operations.dto.BidDTO;
+import com.groupeight.BidZone.Operations.dto.BidListingDTO;
 import com.groupeight.BidZone.Operations.entity.Bid;
 import com.groupeight.BidZone.Operations.repo.BidRepository;
 import com.groupeight.BidZone.Operations.util.VarList;
@@ -10,7 +11,9 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -69,6 +72,25 @@ public class BidService {
         }else{
             return VarList.RSP_NO_DATA_FOUND;
         }
+    }
+
+    //for get the highest bids according to the users for ended listings
+    public List<BidListingDTO> findHighestBidsForUserAndEndingBeforeDate(int userId, LocalDateTime givenDate) {
+        List<Object[]> resultList = bidRepository.findHighestBidsForUserAndEndingBeforeDate(userId, givenDate);
+
+        return resultList.stream()
+                .map(row -> new BidListingDTO(
+                        (int) row[0],            // bid_id
+                        (int) row[1],            // listing_Id
+                        (int) row[2],            // user_id
+                        (String) row[3],         // listing_name
+                        (String) row[4],         // listing_description
+                        (String) row[5],         // listing_category
+                        (LocalDateTime) row[6],  // listing_ending
+                        (LocalDateTime) row[7],  // bid_timestamp
+                        (float) row[8]           // bid_price
+                ))
+                .collect(Collectors.toList());
     }
 
     //------------------------------------------------------------------------------------------------------------
