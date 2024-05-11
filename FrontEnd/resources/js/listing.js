@@ -1,7 +1,13 @@
 // Call the function with the listingId from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const listingId = urlParams.get('listingId');
-const userId = localStorage.getItem('userid');
+// const urlParams = new URLSearchParams(window.location.search);
+// localStorage.setItem('listId', urlParams.get('listingId'));
+
+const listingId = parseInt(localStorage.getItem('listingId'));
+const userId = parseInt(localStorage.getItem('userid'));
+
+console.log(typeof(listingId)+" listingId: "+listingId);
+console.log(typeof(userId)+" userId: "+userId);
+
 var listedPrice, highestBid;
 
 fetchListingData(listingId);
@@ -18,7 +24,7 @@ async function fetchListingData(listingId) {
         listedPrice = listing.content.price;
         highestBid = listedPrice;
 
-        console.log("Highest Price: " + highestBid);
+        console.log(typeof(listedPrice)+ " listed Price: " + listedPrice);
 
         document.getElementById('item-image').src = `file:${listing.content.image}`;
         document.getElementById('item-name').innerHTML = listing.content.name;
@@ -60,10 +66,11 @@ async function fetchBidData(listId) {
         } else {
             document.getElementById('bids-for-item').textContent = "No Bids";
         }
-        // Set the minimum value of the input field in the bid modal
+        
         document.getElementById('your-bid').setAttribute('min', parseInt(highestBid) + 1);
-        // Set the placeholder
         document.getElementById('your-bid').setAttribute('placeholder', parseInt(highestBid) + 1);
+        console.log(typeof(highestBid) + " Highest Price: " + highestBid);
+
     } catch (error) {
         console.error("Error fetching bids:", error);
     }
@@ -103,8 +110,8 @@ function placeBid() {
             body: JSON.stringify(bidData)
         })
             .then(response => response.json())
-            .then(data => { console.log('Bid placed:', data); 
-            location.href = '../../HTML/listing.html?listingId=' + encodeURIComponent(listingId);
+            .then(data => { console.log('Bid placed:', data);
+            location.reload();
             }
             ).catch(error => console.error('Error placing bid:', error));
     } else {
@@ -113,7 +120,7 @@ function placeBid() {
 }
 
 // Event listener for bid submission
-document.getElementById('btn-place-bid').addEventListener('click', function () { placeBid() });
+// document.getElementById('btn-place-bid').addEventListener('click', function () { placeBid() });
 
 function formatDate(dateString) {
     const date = new Date(dateString);

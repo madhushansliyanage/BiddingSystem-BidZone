@@ -45,13 +45,13 @@ fetch(`http://localhost:8080/listing/search-by-date/${currentDateTimeString}`)
                               <div class="d-flex justify-content-between align-items-center">
                                   <div class="btn-group">
                                   <button type="button" class="btn btn-sm btn-outline-secondary btn-view" 
-                                  onclick="location.href = './listing.html?listingId=' + encodeURIComponent('${listing.id}')">
+                                  onclick="setListingIdTolocalStorage(${listing.id})">
                               View
                           </button>
                                   </div>
                                   <small class="text-muted">
                                     <span id="ending-time">${formatDate(listing.ending)}</span><br/>
-                                    <span id="time-remain"></span>
+                                    <span id="time-remain" style="color:brown"></span>
                                   </small>
 
                               </div>
@@ -74,6 +74,12 @@ fetch(`http://localhost:8080/listing/search-by-date/${currentDateTimeString}`)
         }
     })
     .catch(error => console.error("Error fetching listings:", error));
+
+function setListingIdTolocalStorage(listId){
+    console.log(listId);
+    localStorage.setItem('listingId',listId);
+    location.href = './listing.html';
+}
 
 function formatDate(dateString) {
     const date = new Date(dateString);
