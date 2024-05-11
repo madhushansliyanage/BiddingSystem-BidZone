@@ -15,4 +15,5 @@ public class BidDTO {
     private int userId;
     private LocalDateTime timestamp;
     private float price;
+    private String status;
 }

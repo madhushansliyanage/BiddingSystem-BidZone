@@ -9,6 +9,7 @@ const seconds = String(currentDate.getSeconds()).padStart(2, '0');
 
 // Format the date-time string in the required format for your API
 const currentDateTimeString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+console.log(currentDateTimeString);
 
 // Fetch data from API with current system date and time
 fetch(`http://localhost:8080/listing/search-by-date/${currentDateTimeString}`)

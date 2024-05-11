@@ -18,8 +18,9 @@ function login() {
                 localStorage.setItem('userid', response.content.id);
                 localStorage.setItem('name', response.content.name);
 
+
                 // If user is found, redirect or do home page
-                window.location.replace('../HTML/home.html');
+               window.location.replace('../HTML/home.html');
             } else {
                 // If user is not found, show error message
                 console.log(response);
