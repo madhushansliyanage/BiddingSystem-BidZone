@@ -15,7 +15,10 @@ async function fetchListingData(listingId) {
             return;
         }
         const listing = await response.json();
-        highestBid = listedPrice = listing.content.price;
+        listedPrice = listing.content.price;
+        highestBid = listedPrice;
+
+        console.log("Highest Price: " + highestBid);
 
         document.getElementById('item-image').src = `file:${listing.content.image}`;
         document.getElementById('item-name').innerHTML = listing.content.name;
@@ -32,35 +35,38 @@ async function fetchListingData(listingId) {
 }
 
 async function fetchBidData(listId) {
-    fetch(`http://localhost:8080/bid/search-by-list-id/${listId}`)
-        .then(response => response.json())
-        .then(data => {
-            if (data.code === "00") {
-                const bids = data.content;
-                const parentContainer = document.getElementById('bids-for-item');
-                bids.forEach(bid => {
-                    const bidElement = document.createElement('li');
-                    bidElement.classList.add('list-group-item');
-                    bidElement.innerHTML = bid.price;
-                    parentContainer.appendChild(bidElement);
-
-                    // Update highest bid if the new bid is higher
-                    if (bid.price >= highestBid) {
-                        highestBid = bid.price;
-                    }
-                });
-                // Set the minimum value of the input field in the bid modal
-                document.getElementById('your-bid').setAttribute('min', parseInt(highestBid) + 1);
-                // Set the placeholder
-                document.getElementById('your-bid').setAttribute('placeholder', parseInt(highestBid) + 1);
-            } else if (data.code === "01") {
-                document.getElementById('bids-for-item').innerHTML = "No Bids";
-                console.error("Failed to fetch listings:" + data.message);
-            } else {
-                console.error("Failed to fetch listings:" + data.message);
-            }
-        })
-        .catch(error => console.error("Error fetching bids:", error));
+    try {
+        const response = await fetch(`http://localhost:8080/bid/search-by-list-id/${listId}`);
+        if (!response.ok) {
+            console.error(`Failed to fetch bid data: ${response.status}`);
+            return;
+        }
+        const data = await response.json();
+        const bids = data.content;
+        const parentContainer = document.getElementById('bids-for-item');
+        // Clear previous bid data
+        parentContainer.innerHTML = "";
+        if (Array.isArray(bids) && bids.length > 0) {
+            bids.forEach(bid => {
+                const bidElement = document.createElement('li');
+                bidElement.classList.add('list-group-item');
+                bidElement.textContent = bid.price;
+                parentContainer.appendChild(bidElement);
+                // Update highest bid if the new bid is higher
+                if (bid.price >= highestBid) {
+                    highestBid = bid.price;
+                }
+            });
+        } else {
+            document.getElementById('bids-for-item').textContent = "No Bids";
+        }
+        // Set the minimum value of the input field in the bid modal
+        document.getElementById('your-bid').setAttribute('min', parseInt(highestBid) + 1);
+        // Set the placeholder
+        document.getElementById('your-bid').setAttribute('placeholder', parseInt(highestBid) + 1);
+    } catch (error) {
+        console.error("Error fetching bids:", error);
+    }
 }
 
 // Function to send bid to the backend
@@ -97,7 +103,9 @@ function placeBid() {
             body: JSON.stringify(bidData)
         })
             .then(response => response.json())
-            .then(data => { console.log('Bid placed:', data); }
+            .then(data => { console.log('Bid placed:', data); 
+            location.href = '../../HTML/listing.html?listingId=' + encodeURIComponent(listingId);
+            }
             ).catch(error => console.error('Error placing bid:', error));
     } else {
 
