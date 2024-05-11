@@ -63,3 +63,11 @@ function formatDate(dateString) {
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
 
+
+function navigateToBidPaymentsPage() {
+  // Define the URL of the bid payments page
+  const bidPaymentsPageUrl = "../HTML/bidpayments.html"; // Update with the actual URL
+
+  // Navigate to the bid payments page
+  window.location.href = bidPaymentsPageUrl;
+}
