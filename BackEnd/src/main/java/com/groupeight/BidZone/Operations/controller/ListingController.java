@@ -77,10 +77,10 @@ public class ListingController {
         }
     }
 
-    @GetMapping(value = "/search-by-date/{date}")
-    public ResponseEntity searchListingByDate(@PathVariable LocalDateTime date){
+    @GetMapping(value = "/search-by-date-except-userid/{date}/{userId}")
+    public ResponseEntity searchListingByDateExceptUserId(@PathVariable LocalDateTime date,@PathVariable int userId){
         try{
-            List<ListingDTO> listingDTOList = listingService.findListingByDate(date);
+            List<ListingDTO> listingDTOList = listingService.findListingByDateExceptUserId(date,userId);
 
             if (listingDTOList.isEmpty()){
                 responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
@@ -103,6 +103,31 @@ public class ListingController {
         }
     }
 
+    @GetMapping(value = "/search-by-userid/{userId}")
+    public ResponseEntity findListingByUserId(@PathVariable int userId){
+        try{
+            List<ListingDTO> listingDTOList = listingService.findListingByUserId(userId);
+
+            if (listingDTOList.isEmpty()){
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No records of the listings for userid:"+userId);
+            }else {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Successfully fetched the Listings");
+            }
+            responseDTO.setContent(listingDTOList);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        }catch (Exception ex){
+            System.out.println("ERROR: "+ex.getMessage());
+
+            // Handle exceptions
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PutMapping(value = "/update")
     public ResponseEntity updateListing(@RequestBody ListingDTO listingDTO){

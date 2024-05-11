@@ -1,19 +1,19 @@
 const userId = parseInt(localStorage.getItem('userid'));
 
-// Get current system date and time
-const currentDate = new Date();
-const year = currentDate.getFullYear();
-const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-const day = String(currentDate.getDate()).padStart(2, '0');
-const hours = String(currentDate.getHours()).padStart(2, '0');
-const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+// // Get current system date and time
+// const currentDate = new Date();
+// const year = currentDate.getFullYear();
+// const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+// const day = String(currentDate.getDate()).padStart(2, '0');
+// const hours = String(currentDate.getHours()).padStart(2, '0');
+// const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+// const seconds = String(currentDate.getSeconds()).padStart(2, '0');
 
-// Format the date-time string in the required format for your API
-const currentDateTimeString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+// // Format the date-time string in the required format for your API
+// const currentDateTimeString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
 
 // Fetch data from API with current system date and time
-fetch(`http://localhost:8080/listing/search-by-date-except-userid/${currentDateTimeString}/${userId}`)
+fetch(`http://localhost:8080/listing/search-by-userid/${userId}`)
     .then(response => response.json())
     .then(data => {
         // Check if API response is successful
@@ -107,7 +107,7 @@ function updateTimeRemaining(endTimeString, timeRemainElement) {
         if (timeDiff <= 0) {
             timeRemainElement.innerHTML = "Expired"; // Change text if time is expired
             clearInterval(updateInterval); // Stop updating time when expired
-            document.querySelector('.btn-view').disabled = true;
+            //document.querySelector('.btn-view').disabled = true;
         } else {
             var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
             var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
