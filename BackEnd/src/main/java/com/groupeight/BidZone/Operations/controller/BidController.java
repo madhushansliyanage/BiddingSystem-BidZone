@@ -214,7 +214,7 @@ public class BidController {
     }
 
     @GetMapping("/highestbidaccordingtouser/{userId}/{givenDate}")
-    public List<BidListingDTO> getHighestBidsForUserAndEndingBeforeDate(
+    public ResponseEntity getHighestBidsForUserAndEndingBeforeDate(
             @PathVariable int userId,
             @PathVariable LocalDateTime givenDate) {
 
@@ -229,7 +229,7 @@ public class BidController {
                 responseDTO.setMessage("Successfully fetched the Bid of User:"+userId);
             }
             responseDTO.setContent(bidListAccordingtoUser);
-            return (List<BidListingDTO>) new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
 
         }catch (Exception ex){
             System.out.println("ERROR: "+ex.getMessage());
@@ -238,7 +238,37 @@ public class BidController {
             responseDTO.setCode(VarList.RSP_ERROR);
             responseDTO.setMessage(ex.getMessage());
             responseDTO.setContent(null);
-            return (List<BidListingDTO>) new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/aaaaaa/{userId}")
+    public ResponseEntity findHighestBidsForUserAndEndingBeforeDate1111(
+            @PathVariable int userId) {
+
+        try{
+            List<BidListingDTO> bidListAccordingtoUser = bidService.findHighestBidsForUserAndEndingBeforeDate1111(userId);
+
+            if (bidListAccordingtoUser.isEmpty()){
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No records of the Bid of user: "+userId);
+            }else {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Successfully fetched the Bid of User:"+userId);
+            }
+
+            responseDTO.setContent(bidListAccordingtoUser);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        }catch (Exception ex){
+            System.out.println("ERROR: "+ex.getMessage());
+
+            // Handle exceptions
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
