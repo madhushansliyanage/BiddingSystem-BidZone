@@ -17,4 +17,5 @@ public class ListingDTO {
     private LocalDateTime ending;
     private float price;
     private String image;
+    private int userId;
 }
