@@ -1,5 +1,3 @@
-// home.js
-
 // Function to fetch and display bid data
 function fetchAndDisplayBids(userId) {
     // Construct the API URL using the provided userId
@@ -28,7 +26,7 @@ function fetchAndDisplayBids(userId) {
                             <td>${formatDateTime(bid.listingEnding)}</td>
                             <td>${formatDateTime(bid.bidTimestamp)}</td>
                             <td>${bid.bidPrice}</td>
-                            <td><button class="btn btn-primary" onclick="processBid(${bid.bidId})">Pay</button></td>
+                            <td><button class="btn btn-primary" onclick="processBid(${bid.bidId}, ${bid.listingId}, ${bid.bidPrice},'${bid.listingName}')">Pay</button></td>
                         </tr>
                     `;
 
@@ -67,9 +65,18 @@ function formatDateTime(dateTimeString) {
     return dateTime.toLocaleString(); // Convert to local date and time format
 }
 
-// Function to handle processing a bid (e.g., opening a modal or performing an action)
-function processBid(bidId) {
-    console.log("Processing bid:", bidId);
+// Function to navigate to the payment page and pass bid data
+function processBid(bidId, listingId, bidPrice, listingName) {
+    console.log("Processing bid:", bidId, listingId, bidPrice, listingName);
+
+    // Encode the listingName parameter
+    const encodedListingName = encodeURIComponent(listingName);
+
+    // Construct the payment page URL with query parameters
+    const paymentUrl = `../HTML/paymentgateway.html?bidId=${bidId}&listingId=${listingId}&listingName=${encodedListingName}&bidPrice=${bidPrice}`;
+
+    // Navigate to the payment page
+    window.location.href = paymentUrl;
 }
 
 // Example usage:
