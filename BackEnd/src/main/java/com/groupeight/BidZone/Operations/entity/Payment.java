@@ -11,29 +11,27 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Listing {
+public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(nullable = false)
-    private String name;
+    private int listing_Id;
 
     @Column(nullable = false)
-    private String description;
+    private int user_Id;
 
     @Column(nullable = false)
-    private String category;
+    private int bid_Id;
 
     @Column(nullable = false)
-    private LocalDateTime ending;
+    private LocalDateTime paid_time;
+
+    @Column(nullable = false)
+    private String payment_type;
 
     @Column(nullable = false, columnDefinition = "float default 0")
     private float price;
 
-    @Column
-    private String image;
-
-    @Column
-    private int userId;
 }

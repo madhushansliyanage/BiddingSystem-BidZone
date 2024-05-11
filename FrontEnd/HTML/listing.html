@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bid Zone</title>
@@ -11,11 +12,10 @@
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="../resources/js/utils.js"></script>
-  <script src="../resources/js/listing.js"></script>
+
   <script src="../resources/js/header.js"></script>
   <script src="../resources/js/logout.js"></script>
 </head>
-<body onload="setCountDown('{{ listing.ending }}')">
 
 <div class="custom-navbar">
   <a href="home.html">Home</a>
@@ -26,7 +26,8 @@
   <a href="statistics.html">Statistics</a>
   <div class="custom-navbar-right">
     <!-- Dynamic greeting with username -->
-    <a id="welcome-user-link" href="profile.html">Welcome <span id="username-placeholder"></span> <i class="fa fa-fw fa-user"></i></a>
+    <a id="welcome-user-link" href="profile.html">Welcome <span id="username-placeholder"></span> <i
+        class="fa fa-fw fa-user"></i></a>
     <a href="javascript:logout()"><i class="fa fa-fw fa-sign-out"></i></a>
   </div>
 </div>
@@ -37,7 +38,8 @@
       Listing
       <!-- Buttons for editing/deleting listing -->
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>
-      <button type="button" class="btn btn-primary button-red" data-toggle="modal" data-target="#deleteModal">Delete</button>
+      <button type="button" class="btn btn-primary button-red" data-toggle="modal"
+        data-target="#deleteModal">Delete</button>
     </h1>
   </div>
 </section>
@@ -45,74 +47,34 @@
 <div class="album py-5 bg-light">
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <img class="listing-image">
-      </div>
+      <div class="col-md-4"> <img id="item-image" class="listing-image"> </div>
       <div class="details col-md-8">
-        <h2 class="details h2">Name: </h2>
-        <p class="details p:nth-child(2)"><strong>Category: </strong></p>
-        <p class="details p:nth-child(3)"><strong>Description: </strong></p>
+        <h2 id="item-name" class="details h2">Name: </h2>
+        <p class="details p">Category: <strong id="category-details"></strong></p>
+        <p class="details p">Description: <strong id="description-details"></strong></p>
         <p>
-          <strong class="details p:nth-child(4) span"> </strong>
-          <span id="timer"></span>
+          Ends At: <strong id="ending-datetime" class="details span"> </strong><br>
+          <span id="time-remain" style="color: brown;">Time remaining: 0d 00h 00m 00s</span>
         </p>
-        <p>
-          <strong>Current Price: </strong>&euro;{{ listing.price | number_format(2) }}
-        </p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bidModal">
-          Place bid
-        </button>
-        <p><strong>Bids: </strong></p>
-        <ul class="list-group">
-          {% for bid in bids %}
-          <li class="list-group-item">
-            {{ bid.timestamp | date('Y-m-d H:i') }}:
-            &euro;{{ bid.price | number_format(2) }} by {{ bid.user.username }}
-          </li>
-          {% endfor %}
+
+        <p>Listed Price:<strong>Rs.</strong><span id="listed-price" style="font-weight: bold;"></span></p>
+        <button type="button" class="btn btn-primary" data-toggle="modal"
+          data-target="#bidModal">Place bid</button>
+
+        <p style="font-weight: bold;">Bids:</p>
+
+        <ul id="bids-for-item" class="list-group">
         </ul>
-        {% else %}
-        <p>
-          <strong>Ended at: </strong>{{ listing.ending | date('Y-m-d H:i') }}
-        </p>
       </div>
     </div>
   </div>
 </div>
 
-<script>
-  async function fetchListingData(listingId) {
-    try {
-        const response = await fetch(`http://localhost:8080/listing/search-by-id/${listingId}`);
-        if (!response.ok) {
-            console.error(`Failed to fetch listing data: ${response.status}`);
-            return;
-        }
-        const listing = await response.json();
-
-        // Set the values in the HTML
-        document.querySelector('.listing-image').src = `file:${listing.content.image}`;
-        document.querySelector('.details h2').textContent = `Name: ${listing.content.name}`;
-        document.querySelector('.details p:nth-child(2)').textContent = `Category: ${listing.content.category}`;
-        document.querySelector('.details p:nth-child(3)').textContent = `Description: ${listing.content.description}`;
-        document.querySelector('.details p:nth-child(4) span').textContent = `Date :${listing.content.ending}`;
-    } catch (error) {
-        console.error('Error fetching listing data:', error);
-    }
-}
-
-// Call the function with the listingId from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const listingId = urlParams.get('listingId');
-fetchListingData(listingId);
-
-</script>
-
 <!-- Modal for placing bids -->
 <div id="bidModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <form class="modal-content" action="/listing/placeBid/{{ listing.id }}" method="post">
+      <form class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Bid</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -122,12 +84,13 @@ fetchListingData(listingId);
         <div class="modal-body">
           <div class="form-group">
             <label for="price" class="col-form-label">Price</label>
-            <input type="number" class="form-control" id="price" min="{{ listing.price + 1 }}" step="1" placeholder="Enter Price" required>
+            <!-- Input field for bidding with minimum value and placeholder -->
+            <input type="number" class="form-control" id="your-bid" step="1" required>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Place bid</button>
+          <button type="submit" id="btn-place-bid" class="btn btn-primary" onclick="placeBid()">Place bid</button>
         </div>
       </form>
     </div>
@@ -148,19 +111,23 @@ fetchListingData(listingId);
         <div class="modal-body">
           <div class="form-group">
             <label for="name" class="col-form-label">Name</label>
-            <input type="text" class="form-control" id="name" value="{{ listing.name }}" placeholder="Enter Name" minlength="6" maxlength="20" required>
+            <input type="text" class="form-control" id="name" value="{{ listing.name }}" placeholder="Enter Name"
+              minlength="6" maxlength="20" required>
           </div>
           <div class="form-group">
             <label for="description" class="col-form-label">Description</label>
-            <input type="text" class="form-control" id="description" value="{{ listing.description }}" placeholder="Enter Description" minlength="6" maxlength="200" required>
+            <input type="text" class="form-control" id="description" value="{{ listing.description }}"
+              placeholder="Enter Description" minlength="6" maxlength="200" required>
           </div>
           <div class="form-group">
             <label for="category" class="col-form-label">Category</label>
-            <input type="text" class="form-control" id="category" value="{{ listing.category }}" placeholder="Enter Category" minlength="6" maxlength="20" required>
+            <input type="text" class="form-control" id="category" value="{{ listing.category }}"
+              placeholder="Enter Category" minlength="6" maxlength="20" required>
           </div>
           <div class="form-group">
             <label for="ending" class="col-form-label">Ending</label>
-            <input type="datetime-local" class="form-control" id="ending" value="{{ listing.ending | date('Y-m-d\\TH:i') }}" required>
+            <input type="datetime-local" class="form-control" id="ending"
+              value="{{ listing.ending | date('Y-m-d\\TH:i') }}" required>
           </div>
           <div class="form-group">
             <label for="file" class="col-form-label">Image</label>
@@ -199,5 +166,8 @@ fetchListingData(listingId);
   </div>
 </div>
 
+<script src="../resources/js/listing.js"></script>
+
 </body>
+
 </html>

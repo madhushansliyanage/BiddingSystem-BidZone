@@ -2,6 +2,7 @@ package com.groupeight.BidZone.Operations.controller;
 
 
 import com.groupeight.BidZone.Operations.dto.BidDTO;
+import com.groupeight.BidZone.Operations.dto.BidListingDTO;
 import com.groupeight.BidZone.Operations.dto.ResponseDTO;
 import com.groupeight.BidZone.Operations.service.BidService;
 import com.groupeight.BidZone.Operations.util.VarList;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -210,4 +212,85 @@ public class BidController {
             return new ResponseEntity(responseDTO,HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/highestbidaccordingtouser/{userId}/{givenDate}")
+    public ResponseEntity getHighestBidsForUserAndEndingBeforeDate(
+            @PathVariable int userId,
+            @PathVariable LocalDateTime givenDate) {
+
+        try{
+            List<BidListingDTO> bidListAccordingtoUser = bidService.findHighestBidsForUserAndEndingBeforeDate(userId, givenDate);
+
+            if (bidListAccordingtoUser.isEmpty()){
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No records of the Bid of user: "+userId);
+            }else {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Successfully fetched the Bid of User:"+userId);
+            }
+            responseDTO.setContent(bidListAccordingtoUser);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        }catch (Exception ex){
+            System.out.println("ERROR: "+ex.getMessage());
+
+            // Handle exceptions
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @GetMapping("/aaaaaa/{userId}")
+    public ResponseEntity findHighestBidsForUserAndEndingBeforeDate1111(
+            @PathVariable int userId) {
+
+        try{
+            List<BidListingDTO> bidListAccordingtoUser = bidService.findHighestBidsForUserAndEndingBeforeDate1111(userId);
+
+            if (bidListAccordingtoUser.isEmpty()){
+                responseDTO.setCode(VarList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("No records of the Bid of user: "+userId);
+            }else {
+                responseDTO.setCode(VarList.RSP_SUCCESS);
+                responseDTO.setMessage("Successfully fetched the Bid of User:"+userId);
+            }
+
+            responseDTO.setContent(bidListAccordingtoUser);
+            return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+        }catch (Exception ex){
+            System.out.println("ERROR: "+ex.getMessage());
+
+            // Handle exceptions
+            responseDTO.setCode(VarList.RSP_ERROR);
+            responseDTO.setMessage(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    @PutMapping("/completebid/{bidId}")
+    public ResponseEntity<String> completeBid(@PathVariable int bidId) {
+        try {
+            String response = bidService.markBidAsComplete(bidId);
+
+            if (response.equals(VarList.RSP_SUCCESS)) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED)
+                        .body("Successfully updated the Bid");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Not found such a Bid");
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error: " + ex.getMessage());
+        }
+    }
 }
+
+
+
