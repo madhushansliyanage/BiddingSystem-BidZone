@@ -112,6 +112,18 @@ public class BidService {
                 ))
                 .collect(Collectors.toList());
     }
+
+
+    public String markBidAsComplete(int bidId) {
+        if(bidRepository.existsById(bidId)){
+            System.out.println("service class");
+            bidRepository.updateBidStatusToComplete(bidId);
+            return VarList.RSP_SUCCESS;
+        }else{
+            return VarList.RSP_NO_DATA_FOUND;
+        }
+    }
+
     //------------------------------------------------------------------------------------------------------------
     /*public List<Bid> findUserActiveBids(Integer userId) {
         return bidRepository.findUserActiveBids(userId);

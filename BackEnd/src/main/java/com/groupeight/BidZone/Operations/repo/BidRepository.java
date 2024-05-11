@@ -3,7 +3,9 @@ package com.groupeight.BidZone.Operations.repo;
 import com.groupeight.BidZone.Operations.dto.BidListingDTO;
 import com.groupeight.BidZone.Operations.entity.Bid;
 import com.groupeight.BidZone.Operations.entity.Listing;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -58,6 +60,11 @@ public interface BidRepository extends JpaRepository<Bid, Integer> {
     List<Object[]> findHighestBidsForUserAndEndingBeforeDate1111(
              int userId);
 
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Bid b SET b.status = 'complete' WHERE b.id = :bidId")
+    void updateBidStatusToComplete(int bidId);
 
     /*@Query("SELECT b FROM Bid b WHERE b.user.id=:userId")
     List<Bid> findUserActiveBids(@Param("userId")Integer userId);

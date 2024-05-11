@@ -271,4 +271,26 @@ public class BidController {
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    @PutMapping("/completebid/{bidId}")
+    public ResponseEntity<String> completeBid(@PathVariable int bidId) {
+        try {
+            String response = bidService.markBidAsComplete(bidId);
+
+            if (response.equals(VarList.RSP_SUCCESS)) {
+                return ResponseEntity.status(HttpStatus.ACCEPTED)
+                        .body("Successfully updated the Bid");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Not found such a Bid");
+            }
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error: " + ex.getMessage());
+        }
+    }
 }
+
+
+
