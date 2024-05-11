@@ -39,8 +39,13 @@ public class ListingService {
         }
     }
 
-    public List<ListingDTO> findListingByDate(LocalDateTime date) {
-        List<Listing> listings = listingRepository.findListingsByDate(date);
+    public List<ListingDTO> findListingByDateExceptUserId(LocalDateTime date, int userId) {
+        List<Listing> listings = listingRepository.findListingsByDateExceptUserId(date,userId);
+        return modelMapper.map(listings,new TypeToken<List<ListingDTO>>(){}.getType());
+    }
+
+    public List<ListingDTO> findListingByUserId(int userId){
+        List<Listing> listings = listingRepository.findListingByUserId(userId);
         return modelMapper.map(listings,new TypeToken<List<ListingDTO>>(){}.getType());
     }
 

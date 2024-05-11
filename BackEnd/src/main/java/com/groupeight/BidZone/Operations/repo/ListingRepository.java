@@ -12,8 +12,13 @@ import java.util.List;
 @Repository
 public interface ListingRepository extends JpaRepository<Listing, Integer> {
 
-    @Query(value = "SELECT * FROM Listing l WHERE l.ending >= :date ORDER BY l.ending ASC", nativeQuery = true)
-    List<Listing> findListingsByDate(LocalDateTime date);
+    // This query retrieves a list of listings whose ending date is greater than or equal to the specified date,
+    // sorted by ending date in ascending order.
+    @Query(value = "SELECT * FROM Listing WHERE ending >= ?1 AND user_id!= ?2 ORDER BY ending ASC", nativeQuery = true)
+    List<Listing> findListingsByDateExceptUserId(LocalDateTime date, int userId);
+
+    @Query(value = "SELECT * FROM Listing WHERE user_id = ?1",nativeQuery = true)
+    List<Listing> findListingByUserId(int userId);
 
 
     /*@Query("SELECT l FROM Listing l WHERE l.ending > :date ORDER BY l.ending ASC")

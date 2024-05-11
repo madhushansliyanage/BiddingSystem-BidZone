@@ -77,7 +77,7 @@ async function fetchBidData(listId) {
 }
 
 // Function to send bid to the backend
-function placeBid() {
+async function placeBid() {
     // Get bid price from input field
     const bidPrice = document.getElementById('your-bid').value;
     if (bidPrice > highestBid) {
@@ -96,7 +96,8 @@ function placeBid() {
             "listingId": listingId,
             "userId": userId,
             "timestamp": timestamp,
-            "price": parseFloat(bidPrice)
+            "price": parseFloat(bidPrice),
+            "status":"pending"
         };
 
         console.log(bidData);
