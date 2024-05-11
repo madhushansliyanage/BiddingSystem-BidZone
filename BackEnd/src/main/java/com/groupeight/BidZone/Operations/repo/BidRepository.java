@@ -1,5 +1,6 @@
 package com.groupeight.BidZone.Operations.repo;
 
+import com.groupeight.BidZone.Operations.dto.BidListingDTO;
 import com.groupeight.BidZone.Operations.entity.Bid;
 import com.groupeight.BidZone.Operations.entity.Listing;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,7 +35,7 @@ public interface BidRepository extends JpaRepository< Bid, Integer> {
             ") AS b " +
             "INNER JOIN Listing l ON b.listing_Id = l.id " +
             "WHERE b.user_id = :user_id AND l.ending < :given_date", nativeQuery = true)
-    List<BidListingDTO> findHighestBidsForUserAndEndingBeforeDate(int userId,String givenDate);
+    List<BidListingDTO> findHighestBidsForUserAndEndingBeforeDate(int userId, String givenDate);
 
 
 
