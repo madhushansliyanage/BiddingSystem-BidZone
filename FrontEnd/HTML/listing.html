@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bid Zone</title>
@@ -15,7 +16,6 @@
   <script src="../resources/js/header.js"></script>
   <script src="../resources/js/logout.js"></script>
 </head>
-<body onload="setCountDown('{{ listing.ending }}')">
 
 <div class="custom-navbar">
   <a href="home.html">Home</a>
@@ -26,7 +26,8 @@
   <a href="statistics.html">Statistics</a>
   <div class="custom-navbar-right">
     <!-- Dynamic greeting with username -->
-    <a id="welcome-user-link" href="profile.html">Welcome <span id="username-placeholder"></span> <i class="fa fa-fw fa-user"></i></a>
+    <a id="welcome-user-link" href="profile.html">Welcome <span id="username-placeholder"></span> <i
+        class="fa fa-fw fa-user"></i></a>
     <a href="javascript:logout()"><i class="fa fa-fw fa-sign-out"></i></a>
   </div>
 </div>
@@ -37,7 +38,8 @@
       Listing
       <!-- Buttons for editing/deleting listing -->
       <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Edit</button>
-      <button type="button" class="btn btn-primary button-red" data-toggle="modal" data-target="#deleteModal">Delete</button>
+      <button type="button" class="btn btn-primary button-red" data-toggle="modal"
+        data-target="#deleteModal">Delete</button>
     </h1>
   </div>
 </section>
@@ -45,68 +47,143 @@
 <div class="album py-5 bg-light">
   <div class="container">
     <div class="row">
-      <div class="col-md-4">
-        <img class="listing-image">
-      </div>
+      <div class="col-md-4"> <img id="item-image" class="listing-image"> </div>
       <div class="details col-md-8">
-        <h2 class="details h2">Name: </h2>
-        <p class="details p:nth-child(2)"><strong>Category: </strong></p>
-        <p class="details p:nth-child(3)"><strong>Description: </strong></p>
+        <h2 id="item-name" class="details h2">Name: </h2>
+        <p class="details p">Category: <strong id="category-details"></strong></p>
+        <p class="details p">Description: <strong id="description-details"></strong></p>
         <p>
-          <strong class="details p:nth-child(4) span"> </strong>
-          <span id="timer"></span>
+          Ends At: <strong id="ending-datetime" class="details span"> </strong><br>
+          <span id="time-remain" style="color: brown;">Time remaining: 0d 00h 00m 00s</span>
         </p>
-        <p>
-          <strong>Current Price: </strong>&euro;{{ listing.price | number_format(2) }}
-        </p>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#bidModal">
+
+        <p>Listed Price:<strong>Rs.</strong><span id="listed-price" style="font-weight: bold;"></span></p>
+
+        <input type="number" id="your-bid" placeholder="Enter Your bid">
+
+        <button type="button" id="btn-place-bid" class="btn btn-primary" data-toggle="modal" data-target="#bidModal">
           Place bid
         </button>
-        <p><strong>Bids: </strong></p>
-        <ul class="list-group">
-          {% for bid in bids %}
-          <li class="list-group-item">
-            {{ bid.timestamp | date('Y-m-d H:i') }}:
-            &euro;{{ bid.price | number_format(2) }} by {{ bid.user.username }}
-          </li>
-          {% endfor %}
+
+        <p style="font-weight: bold;">Bids:</p>
+
+        <ul id="bids-for-item" class="list-group">
+          <li class="list-group-item"></li>
         </ul>
-        {% else %}
-        <p>
-          <strong>Ended at: </strong>{{ listing.ending | date('Y-m-d H:i') }}
-        </p>
+        <!-- <p><strong>Ended at: </strong>{{ listing.ending | date('Y-m-d H:i') }}</p> -->
       </div>
     </div>
   </div>
 </div>
 
 <script>
+  // Call the function with the listingId from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const listingId = urlParams.get('listingId');
+  var listedPrice,highestBid;
+  fetchListingData(listingId);
+  fetchBidData(listingId);
+
   async function fetchListingData(listingId) {
     try {
-        const response = await fetch(`http://localhost:8080/listing/search-by-id/${listingId}`);
-        if (!response.ok) {
-            console.error(`Failed to fetch listing data: ${response.status}`);
-            return;
-        }
-        const listing = await response.json();
+      const response = await fetch(`http://localhost:8080/listing/search-by-id/${listingId}`);
+      if (!response.ok) {
+        console.error(`Failed to fetch listing data: ${response.status}`);
+        return;
+      }
+      const listing = await response.json();
+      highestBid=listedPrice=listing.content.price;
 
-        // Set the values in the HTML
-        document.querySelector('.listing-image').src = `file:${listing.content.image}`;
-        document.querySelector('.details h2').textContent = `Name: ${listing.content.name}`;
-        document.querySelector('.details p:nth-child(2)').textContent = `Category: ${listing.content.category}`;
-        document.querySelector('.details p:nth-child(3)').textContent = `Description: ${listing.content.description}`;
-        document.querySelector('.details p:nth-child(4) span').textContent = `Date :${listing.content.ending}`;
+      document.getElementById('item-image').src = `file:${listing.content.image}`;
+      document.getElementById('item-name').innerHTML = listing.content.name;
+      document.getElementById('category-details').innerHTML = listing.content.category;
+      document.getElementById('description-details').innerHTML = listing.content.description;
+      document.getElementById('ending-datetime').innerHTML = formatDate(listing.content.ending);
+      document.getElementById('listed-price').innerHTML = listing.content.price;
+
+      // Passing time-remain element to updateTimeRemaining function
+      updateTimeRemaining(listing.content.ending, document.getElementById('time-remain'));
     } catch (error) {
-        console.error('Error fetching listing data:', error);
+      console.error('Error fetching listing data:', error);
     }
-}
+  }
 
-// Call the function with the listingId from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const listingId = urlParams.get('listingId');
-fetchListingData(listingId);
+  async function fetchBidData(listId) {
+    fetch(`http://localhost:8080/bid/search-by-list-id/${listId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.code === "00") {
 
+          const bids = data.content;
+
+          const parentContainer = document.getElementById('bids-for-item');
+
+          console.log(data);
+          
+          bids.forEach(bid => {
+            
+            const bidElement = document.createElement('li');
+            bidElement.classList.add('list-group-item');
+
+            bidElement.innerHTML=bid.price;
+
+            parentContainer.appendChild(bidElement);
+
+            if(bid.price>=highestBid){
+              highestBid=bid.price;
+              document.getElementById('your-bid').value = parseInt(highestBid) + 1;
+            }
+          });
+
+        } else if (data.code === "01") {
+          document.getElementById('bids-for-item').innerHTML = "No Bids";
+          console.error("Failed to fetch listings:" + data.message);
+        }
+        else {
+          console.error("Failed to fetch listings:" + data.message);
+        }
+
+      }).catch(error => console.error("Error fetching bids:", error));
+  }
+  
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Adding 1 because month index starts from 0
+    const day = ('0' + date.getDate()).slice(-2);
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    const seconds = ('0' + date.getSeconds()).slice(-2);
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  // Function to calculate and update remaining time
+  function updateTimeRemaining(endTimeString, timeRemainElement) {
+    // Creating a Date object from the extracted string
+    var endTime = new Date(endTimeString);
+
+    var updateInterval = setInterval(function () {
+      var now = new Date();
+      var timeDiff = endTime - now;
+
+      if (timeDiff <= 0) {
+        timeRemainElement.innerHTML = "Expired"; // Change text if time is expired
+        clearInterval(updateInterval); // Stop updating time when expired
+        // document.querySelector('.btn-view').disabled = true;
+      } else {
+        var days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+        timeRemainElement.innerHTML = "Time remaining: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+      }
+    }, 1000);
+  }
 </script>
+
+
 
 <!-- Modal for placing bids -->
 <div id="bidModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -122,7 +199,8 @@ fetchListingData(listingId);
         <div class="modal-body">
           <div class="form-group">
             <label for="price" class="col-form-label">Price</label>
-            <input type="number" class="form-control" id="price" min="{{ listing.price + 1 }}" step="1" placeholder="Enter Price" required>
+            <input type="number" class="form-control" id="price" min="{{ listing.price + 1 }}" step="1"
+              placeholder="Enter Price" required>
           </div>
         </div>
         <div class="modal-footer">
@@ -148,19 +226,23 @@ fetchListingData(listingId);
         <div class="modal-body">
           <div class="form-group">
             <label for="name" class="col-form-label">Name</label>
-            <input type="text" class="form-control" id="name" value="{{ listing.name }}" placeholder="Enter Name" minlength="6" maxlength="20" required>
+            <input type="text" class="form-control" id="name" value="{{ listing.name }}" placeholder="Enter Name"
+              minlength="6" maxlength="20" required>
           </div>
           <div class="form-group">
             <label for="description" class="col-form-label">Description</label>
-            <input type="text" class="form-control" id="description" value="{{ listing.description }}" placeholder="Enter Description" minlength="6" maxlength="200" required>
+            <input type="text" class="form-control" id="description" value="{{ listing.description }}"
+              placeholder="Enter Description" minlength="6" maxlength="200" required>
           </div>
           <div class="form-group">
             <label for="category" class="col-form-label">Category</label>
-            <input type="text" class="form-control" id="category" value="{{ listing.category }}" placeholder="Enter Category" minlength="6" maxlength="20" required>
+            <input type="text" class="form-control" id="category" value="{{ listing.category }}"
+              placeholder="Enter Category" minlength="6" maxlength="20" required>
           </div>
           <div class="form-group">
             <label for="ending" class="col-form-label">Ending</label>
-            <input type="datetime-local" class="form-control" id="ending" value="{{ listing.ending | date('Y-m-d\\TH:i') }}" required>
+            <input type="datetime-local" class="form-control" id="ending"
+              value="{{ listing.ending | date('Y-m-d\\TH:i') }}" required>
           </div>
           <div class="form-group">
             <label for="file" class="col-form-label">Image</label>
@@ -200,4 +282,5 @@ fetchListingData(listingId);
 </div>
 
 </body>
+
 </html>
