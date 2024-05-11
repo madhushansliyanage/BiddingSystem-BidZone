@@ -33,4 +33,7 @@ public class Listing {
 
     @Column
     private String image;
+
+    @Column
+    private int userId;
 }
