@@ -15,7 +15,7 @@ function login() {
                 // If user is found, store username and password in localStorage
                 localStorage.setItem('username', username);
                 localStorage.setItem('password', password);
-                localStorage.setItem('userid', response.content.userid);
+                localStorage.setItem('userid', response.content.id);
                 localStorage.setItem('name', response.content.name);
 
                 // If user is found, redirect or do home page
