@@ -80,6 +80,43 @@ function handlePaymentFormSubmit(event) {
         return;
     }
 
+
+
+    // Create card details object
+    const cardDetails = {
+        cardNumber: cardNumber,
+        expiryDate: expiryDate,
+        cvv: cvv
+    };
+
+
+    console.log(cardDetails);
+    
+    // Send POST request to backend API
+    fetch('http://localhost:8080/cardDetailsSave', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cardDetails)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to save card details');
+        }
+        return response.text();
+    })
+    .then(data => {
+        console.log(data); // Log success message
+    })
+    .catch(error => {
+        console.error('Error saving card details:', error);
+    });
+
+
+
+
+
     // Retrieve selected payment method
     let selectedValue;
     const paymentMethodRadios = document.getElementsByName('payment-method');
