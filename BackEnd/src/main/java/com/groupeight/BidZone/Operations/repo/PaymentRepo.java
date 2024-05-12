@@ -17,7 +17,7 @@ public interface PaymentRepo extends JpaRepository<Payment, Integer> {
 
     //Get all the payments done by a user
     @Query(value = "SELECT * FROM Payment WHERE user_id = ?1",nativeQuery = true)
-    List<Listing> findListingByUserId(int userId);
+    List<Payment> findPaymentsByUserId(int userId);
 
 
 }
