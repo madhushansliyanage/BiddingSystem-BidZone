@@ -88,3 +88,21 @@ $(document).ready(function() {
     // Fetch and display bids for the logged-in user
     fetchAndDisplayBids(userId);
 });
+
+function navigateToBidPayments() {
+    // Define the URL of the bid payments page
+    const bidPaymentsPageUrl = "../HTML/paidhistory.html"; // Update with the actual URL
+  
+    // Navigate to the bid payments page
+    window.location.href = bidPaymentsPageUrl;
+  }
+  
+  
+  function navigateToBidPaymentsUser() {
+    // Define the URL of the bid payments page
+    console.log("User clicked");
+    const bidPaymentsPageUrl = "../../HTML/User/paidhistory.html"; // Update with the actual URL
+  
+    // Navigate to the bid payments page
+    window.location.href = bidPaymentsPageUrl;
+  }
