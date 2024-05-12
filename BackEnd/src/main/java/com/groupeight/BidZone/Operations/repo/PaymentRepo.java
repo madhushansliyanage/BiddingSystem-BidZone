@@ -12,4 +12,5 @@ public interface PaymentRepo extends JpaRepository<Payment, Integer> {
     Payment save(Payment payment);
 
     // Add more methods for CRUD operations if needed
+
 }
