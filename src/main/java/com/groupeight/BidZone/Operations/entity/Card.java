@@ -6,9 +6,6 @@ public class Card {
     private String expiryDate;
     private String cvv;
 
-    // Constructors, getters, and setters
-    // Implement constructors, getters, and setters
-
     @Override
     public String toString() {
         return "CardDetails{" +

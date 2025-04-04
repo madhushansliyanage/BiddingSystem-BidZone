@@ -4,7 +4,59 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6fee02c-99a2-4a77-b7b6-f14a2bfe77d6" name="Changes" comment="" />
+    <list default="true" id="e6fee02c-99a2-4a77-b7b6-f14a2bfe77d6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/FrontEnd/resources/images/auction-illustrate.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/BiddingSystem-BidZone.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/BiddingSystem-BidZone.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/encrypted_card_details.scr" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/mvnw" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/BidZoneApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/BidZoneApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/controller/BidController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/controller/BidController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/controller/CardDetailsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/controller/CardDetailsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/controller/ListingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/controller/ListingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/dto/BidDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/dto/BidDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/dto/BidListingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/dto/BidListingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/dto/ListingDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/dto/ListingDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/dto/PaymentDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/dto/PaymentDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/dto/ResponseDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/dto/ResponseDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/entity/Bid.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/entity/Bid.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/entity/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/entity/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/entity/Listing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/entity/Listing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/entity/Payment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/entity/Payment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/repo/BidRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/repo/BidRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/repo/CardTypeStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/repo/CardTypeStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/repo/ListingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/repo/ListingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/repo/PaymentRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/repo/PaymentRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/repo/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/repo/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/BidService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/BidService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/CardDetailsService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/CardDetailsService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/CardTypeSelectionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/CardTypeSelectionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/ListingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/ListingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/MailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/MailService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/MastercardPaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/MastercardPaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/service/VisaPaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/service/VisaPaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/java/com/groupeight/BidZone/Operations/util/VarList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/groupeight/BidZone/Operations/util/VarList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/main/resources/static/dog1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/dog1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/BackEnd/src/test/java/com/groupeight/BidZone/BidZoneApplicationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/groupeight/BidZone/BidZoneApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/HTML/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/HTML/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/HTML/signup.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/HTML/signup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/resources/1715279002538_dog1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/resources/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/resources/css/login.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -40,14 +92,19 @@
     &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;Spring Boot.BidZoneApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/SLYM/Documents/BiddingSystem-BidZone-/src/main/java/com/groupeight/BidZone&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/SLYM/Documents/GitHub/BiddingSystem-BidZone&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.importing&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -60,15 +117,9 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
+    <configuration name="BidZoneApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="BidZone" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="BidZone" />
-      <option name="filePath" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.groupeight.BidZone.BidZoneApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -77,8 +128,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.19416.15" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.19416.15" />
       </set>
     </attachedChunks>
   </component>
@@ -96,6 +147,10 @@
       <workItem from="1715079936667" duration="3000" />
       <workItem from="1715372064026" duration="224000" />
       <workItem from="1715373329303" duration="18000" />
+      <workItem from="1743612030692" duration="2026000" />
+      <workItem from="1743615544611" duration="40000" />
+      <workItem from="1743752099886" duration="1166000" />
+      <workItem from="1743765860631" duration="3460000" />
     </task>
     <servers />
   </component>

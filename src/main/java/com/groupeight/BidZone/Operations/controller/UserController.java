@@ -17,8 +17,6 @@ import java.util.List;
 @CrossOrigin// Add your frontend URL here
 public class UserController {
 
-    //private static final Logger logger = Logger.getLogger(com.example.SmartApparel.ZZZZZZZ.controllers.ProfileController.class.getName());
-
     @Autowired
     private ResponseDTO responseDTO;
 
